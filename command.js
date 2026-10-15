@@ -46,7 +46,7 @@ function compare(docs){
  if(a.allergy!==b.allergy&&/allerg|rash/i.test(lower))types.push('Allergy record conflict');
  if(a.prn!==b.prn&&/as needed|as required|prn|scheduled/i.test(lower))types.push('PRN / scheduled difference');
  if(a.release&&b.release&&a.release!==b.release&&!((a.release==='xr'&&b.release.includes('modified'))||(b.release==='xr'&&a.release.includes('modified'))))types.push('Release formulation difference');
- if(a.timing&&b.timing&&a.timing!==b.timing)types.push('Administration timing difference');if(/taper/i.test(a.line)!==/taper/i.test(b.line))types.push('Taper instructions differ');
+ if(a.timing&&b.timing&&a.timing!==b.timing)types.push('Administration timing difference');if(/taper/i.test(a.line)!==/taper/i.test(b.line)||/no taper/i.test(a.line)!==/no taper/i.test(b.line))types.push('Taper instructions differ');
  if(!a.dose!==!b.dose&&/dose|not specified|schedule|missing/i.test(lower))types.push('Missing dose field');
  if(!a.route!==!b.route)types.push('Route detail missing in one record');
  if(!a.timing!==!b.timing&&/timing|morning|evening/i.test(lower))types.push('Timing detail differs');
