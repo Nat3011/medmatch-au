@@ -1,29 +1,41 @@
-# MedMatch AU
+# MedMatch AU — Version 2
 
-Synthetic-data-only proof of concept for Australian medication document inconsistency review.
+A polished, mobile-responsive Australian medication-document consistency **synthetic demo**. Repository owner: **Nat3011**.
 
-**Owner:** Nat3011. **Stage:** Initial working browser demo; not a clinical system.
+## Live site
 
-## Demo
+If GitHub Pages is enabled (Settings → Pages → Deploy from a branch → main → /(root)):
 
-Open `index.html` in a browser. It displays a fictional comparison of a hospital discharge summary and GP medication list with three deliberate discrepancies. Review controls work locally in the browser; the demo does not upload or interpret documents.
+https://nat3011.github.io/medmatch-au/
 
-## What the intended application will do
+## Features
 
-1. Accept 2+ synthetic or appropriately de-identified medical documents.
-2. Extract medication name, strength, administered dose, frequency, route, formulation, temporal status and evidence locations.
-3. Normalise Australian brands and ingredients using appropriately licensed Australian Medicines Terminology (AMT), with TGA/ARTG and PBS as supplementary references.
-4. Compare instructions using explicit rules informed by source dates and document types.
-5. Surface evidence-linked discrepancies for human confirmation and export.
+- Healthcare-themed landing page with custom vector graphics, four KPI cards and workflow infographic.
+- Six navigation sections: Overview, Document workspace, Processing centre, Findings & review, Analytics dashboard and About & safety.
+- Browser-based file selection and drag-and-drop staging. **Files are not read, transmitted, OCR-processed or analysed.**
+- Explicitly simulated progress through intake, OCR, extraction, comparison and summary steps for the synthetic example case.
+- Predefined discrepancy findings for apixaban dose, metformin XR frequency and ramipril status. Each finding displays the two source statements and suggested clinician verification steps.
+- Clinician-review disposition buttons: Confirmed discrepancy, Dismissed and Uncertain. Review actions are stored in the current browser session only.
+- Local download of a synthetic review summary; dashboard status reflects user review actions.
+- Responsive UI in plain HTML, CSS and JavaScript; GitHub Pages compatible without a build step.
 
-## Files
+## How to test
 
-- `index.html`: self-contained interactive *synthetic* review demo.
-- `BLUEPRINT.md`: proposed architecture, safety gates and implementation phases.
-- `tests/expected_findings.json`: three expected findings and three important non-findings.
+1. Open the live site or open `index.html` locally.
+2. Choose **Document workspace → Run synthetic example workflow**.
+3. Watch the explicitly *illustrative* processing timeline, then open **Findings & review**.
+4. Switch among the three findings, choose review statuses, and export review notes.
+5. Open **Analytics dashboard** and confirm the reviewed count updates.
+6. Optionally stage fictional files in the uploader and verify they are marked **Staged only · not processed**.
 
-## Safety and next build
+## Source data
 
-No patient records, model keys or secrets belong in this repository. Do not use this demo to make treatment decisions. The live upload/OCR/AI pipeline, approved medication terminology integration, authentication and secured hosting are **not yet implemented**.
+See `samples/` for three fictional record examples in Markdown and `tests/expected_findings.json` for the intended findings and non-findings.
 
-Next step: Next.js frontend, FastAPI backend, PDF/OCR extraction, structured model extraction, deterministic discrepancy engine, and synthetic validation tests. Human clinical evaluation, privacy assessment, and Australian regulatory assessment are required before processing identifiable patient data.
+## Next implementation stage
+
+Replace the simulated pipeline with a **real**, security-reviewed upload/OCR/structured extraction service and deterministic comparison engine. Proposed architecture: Next.js + FastAPI; Australian Medicines Terminology (subject to licensing) with TGA/ARTG and PBS as supplementary product reference context. Capture document evidence and date-specific status for every result.
+
+## Safety notice
+
+This is not a clinical device or clinical advice. No actual patient documents should be used. No OCR or LLM analysis currently occurs, and the statistics are synthetic-case indicators, not real usage analytics. Never use the demo to change medication. Clinical, privacy, security and regulatory evaluation must precede any patient-data deployment.
