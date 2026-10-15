@@ -3,7 +3,7 @@
 const $=id=>document.getElementById(id);
 let cases=[],files=[],runs=[],current=null,pick=0,busy=false;
 const phases=['Intake','Read PDF / OCR','Identify facility and document type','Medication comparison','Generate review'];
-const brands={eliquis:'apixaban',panadol:'paracetamol',thyroxine:'levothyroxine',symbicort:'budesonide/formoterol'};
+const brands={eliquis:'apixaban',panadol:'paracetamol',thyroxine:'levothyroxine',symbicort:'budesonide/formoterol','metformin xr':'metformin'};
 const vocabulary='lisinopril levothyroxine metformin amlodipine ondansetron metoprolol apixaban amoxicillin salbutamol paracetamol cephalexin alendronate prednisolone warfarin ramipril atorvastatin furosemide pantoprazole omeprazole aspirin clopidogrel bisoprolol rosuvastatin gabapentin morphine tramadol sertraline fluoxetine irbesartan candesartan perindopril empagliflozin dulaglutide enoxaparin duloxetine diclofenac oxycodone doxycycline pregabalin'.split(' ').concat(['insulin glargine','metformin xr','budesonide/formoterol',...Object.keys(brands)]).sort((a,b)=>b.length-a.length);
 const safe=x=>{const d=document.createElement('div');d.textContent=String(x??'');return d.innerHTML};
 const delay=()=>new Promise(r=>setTimeout(r,180));
@@ -21,7 +21,7 @@ function extract(text,file){
  const freq=raw.match(/\b(?:once daily|twice daily|three times daily|four times daily|every six hours|every 6 hours|every 8 hours|every eight hours|every morning|every evening|each morning|each evening|every monday|every day|daily|weekly|as required|as needed|prn)\b/i)?.[0]?.toLowerCase()||'';
  const status=/\b(ceased|discontinued|stopped)\b/i.test(raw)?'ceased':/\b(active|current|continued)\b/i.test(raw)?'active':'';
  const route=raw.match(/\b(?:intravenously|intravenous|subcutaneously|subcutaneous|orally|oral|topical|inhaled|inhaler)\b/i)?.[0]?.toLowerCase()||'';
- const count=raw.match(/\b(?:half|one|two|three|\d+)\s+(?:a\s+)?(?:tablets?|capsules?|puffs?|inhalations?)\b/i)?.[0]?.toLowerCase()||'';
+ const count=raw.match(/\b(?:half|one|two|three|\d+)\s+(?:a\s+)?(?:tablets?|capsules?|puffs?|inhalations?)\b/i)?.[0]?.toLowerCase()||raw.match(/\btake\s+(?:half|one|two|three)\b/i)?.[0]?.toLowerCase()||'';
  const duration=raw.match(/\bfor\s+\d+\s+days?\b/i)?.[0]?.toLowerCase()||'';
  const stop=raw.match(/\bstop\s+\d{1,2}\s+(?:oct|october|nov|november|sep|september)\s*2026\b/i)?.[0]?.toLowerCase()||'';
  const allergy=/\b(allerg(y|ies)|rash)\b/i.test(raw), prn=/\b(as needed|as required|prn)\b/i.test(raw),timing=/\b(morning|evening|monday)\b/i.exec(raw)?.[0]?.toLowerCase()||'';
@@ -32,9 +32,9 @@ function extract(text,file){
 function compare(docs){
  const all=[...new Set(docs.flatMap(d=>d.meds.map(m=>m.med)))],out=[];
  for(const med of all){const rows=docs.flatMap(d=>d.meds.filter(m=>m.med===med));
- if(rows.length<2){if(docs.length>1)out.push({med,type:'Possible omission',a:rows[0],b:null});continue}
+ if(rows.length<2){const allText=docs.map(d=>d.text).join(' ').toLowerCase();if(docs.length>1&&!/course complete|completed course/i.test(allText))out.push({med,type:'Possible omission',a:rows[0],b:null});continue}
  for(const b of rows.slice(1)){const a=rows[0],types=[],lower=(a.line+' '+b.line).toLowerCase();
- const historical=/titration|titrated|course complete|completed course/i.test(lower);
+ const historical=/titration|titrated|course complete|completed course/i.test(docs.map(d=>d.text).join(' '));
  if(a.dose&&b.dose&&a.dose!==b.dose&&!historical)types.push('Dose / unit difference');
  if(a.freq&&b.freq&&a.freq!==b.freq&&!historical)types.push('Frequency difference');
  if(a.status&&b.status&&a.status!==b.status)types.push('Active / ceased conflict');
@@ -45,10 +45,10 @@ function compare(docs){
  if(a.concentration&&b.concentration&&a.concentration!==b.concentration)types.push('Concentration difference');
  if(a.allergy!==b.allergy&&/allerg|rash/i.test(lower))types.push('Allergy record conflict');
  if(a.prn!==b.prn&&/as needed|as required|prn|scheduled/i.test(lower))types.push('PRN / scheduled difference');
- if(a.release&&b.release&&a.release!==b.release)types.push('Release formulation difference');
- if(a.timing&&b.timing&&a.timing!==b.timing)types.push('Administration timing difference');
+ if(a.release&&b.release&&a.release!==b.release&&!((a.release==='xr'&&b.release.includes('modified'))||(b.release==='xr'&&a.release.includes('modified'))))types.push('Release formulation difference');
+ if(a.timing&&b.timing&&a.timing!==b.timing)types.push('Administration timing difference');if(/taper/i.test(a.line)!==/taper/i.test(b.line))types.push('Taper instructions differ');
  if(!a.dose!==!b.dose&&/dose|not specified|schedule|missing/i.test(lower))types.push('Missing dose field');
- if(!a.route!==!b.route&&/route|unspecified/i.test(lower))types.push('Missing route field');
+ if(!a.route!==!b.route)types.push('Route detail missing in one record');
  if(!a.timing!==!b.timing&&/timing|morning|evening/i.test(lower))types.push('Timing detail differs');
  if(/also listed|listed separately|also current/i.test(lower)&&(/panadol|paracetamol/i.test(lower)))types.push('Possible duplicate ingredient entry');
  if(types.length)out.push({med,type:[...new Set(types)].join(' · '),a,b});
