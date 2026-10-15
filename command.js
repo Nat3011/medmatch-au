@@ -10,9 +10,49 @@ const delay=()=>new Promise(r=>setTimeout(r,180));
 function page(name){if(!document.getElementById(name))name='home';document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===name));document.querySelectorAll('[data-page]').forEach(p=>p.classList.toggle('active',p.dataset.page===name));$('breadcrumb').textContent=name==='intake'?'Scan documents':name==='league'?'Hospital leaderboard':name.replace(/^./,c=>c.toUpperCase());$('sidebar').classList.remove('open');history.replaceState(null,'','#'+name);window.scrollTo(0,0);dashboard();}
 document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>page(b.dataset.page));document.querySelectorAll('[data-next]').forEach(b=>b.onclick=()=>page(b.dataset.next));$('menu').onclick=()=>$('sidebar').classList.toggle('open');window.onhashchange=()=>page(location.hash.slice(1));
 function classify(text){const pre=text.slice(0,1500);const sites=[...new Set(cases.flatMap(c=>[c.facility,c.secondary_facility]))];const facility=sites.find(f=>pre.toLowerCase().includes(f.toLowerCase()))||'Unrecognised facility';const kinds=[['Discharge summary',/discharge summary/i],['Medication chart',/medication (administration )?chart/i],['GP medication list',/gp medication|general practice/i],['Allergy record',/allerg(y|ies).*record|allergy reconciliation/i],['Specialist letter',/specialist letter/i],['Prescription',/prescription/i],['Pharmacy record',/pharmacy|dispens/i]];const kind=kinds.find(([,regex])=>regex.test(pre))?.[0]||'Unclassified document';const date=pre.match(/Document date:\s*([^\r\n]+)/i)?.[1]||'Unknown date';return {facility,kind,date};}
-function extract(text,file){const lines=text.split(/\r?\n|;|(?<=\.)\s+(?=[A-Z])/),out=[],found=new Set();for(const raw of lines){const lower=raw.toLowerCase();for(const token of vocabulary){if(!lower.includes(token))continue;const med=brands[token]||token;if(found.has(med))break;found.add(med);const dose=raw.match(/\b\d+(?:\.\d+)?\s*(?:micrograms?|mcg|mg|ml|mL|units?|g)\b/i)?.[0]?.toLowerCase()||'';const freq=raw.match(/\b(?:once daily|twice daily|three times daily|four times daily|every six hours|every 6 hours|every morning|every evening|each morning|daily|weekly|as required|as needed|prn)\b/i)?.[0]?.toLowerCase()||'';const status=/\b(ceased|discontinued|stopped)\b/i.test(raw)?'ceased':/\b(active|current)\b/i.test(raw)?'active':'';out.push({med,dose,freq,status,line:raw.trim().slice(0,450),file});break}}return out;}
-function compare(docs){const all=[...new Set(docs.flatMap(d=>d.meds.map(m=>m.med)))],out=[];for(const med of all){const rows=docs.flatMap(d=>d.meds.filter(m=>m.med===med));if(rows.length<2){if(docs.length>1)out.push({med,type:'Possible omission',a:rows[0],b:null});continue}for(const b of rows.slice(1)){const a=rows[0],types=[];if(a.dose&&b.dose&&a.dose!==b.dose)types.push('Dose / unit difference');if(a.freq&&b.freq&&a.freq!==b.freq)types.push('Frequency difference');if(a.status&&b.status&&a.status!==b.status)types.push('Active / ceased conflict');if(types.length)out.push({med,type:types.join(' · '),a,b})}}return out;}
-function bars(label,value,max){return '<div class="barline"><div><span>'+safe(label)+'</span><b>'+value+'</b></div><div class="bar-bg"><span style="width:'+Math.round(value/max*100)+'%"></span></div></div>'}
+function extract(text,file){
+ const lines=text.split(/\r?\n|;|(?<=\.)\s+(?=[A-Z])/),out=[],found=new Set();
+ for(const raw of lines){const low=raw.toLowerCase();
+ for(const token of vocabulary){if(!low.includes(token))continue;
+ const med=brands[token]||token;
+ if(found.has(med))break;
+ if(new RegExp('(?:no|without|absent|omitted)\\s+'+token.replace('/','\\/'),'i').test(low)||/contains no|not on current list|no known/i.test(low)&&!/(allerg|rash)/i.test(low))continue;
+ const dose=raw.match(/\b\d+(?:\.\d+)?\s*(?:micrograms?|mcg|mg|ml|mL|units?|g)\b/i)?.[0]?.toLowerCase()||'';
+ const freq=raw.match(/\b(?:once daily|twice daily|three times daily|four times daily|every six hours|every 6 hours|every 8 hours|every eight hours|every morning|every evening|each morning|each evening|every monday|every day|daily|weekly|as required|as needed|prn)\b/i)?.[0]?.toLowerCase()||'';
+ const status=/\b(ceased|discontinued|stopped)\b/i.test(raw)?'ceased':/\b(active|current|continued)\b/i.test(raw)?'active':'';
+ const route=raw.match(/\b(?:intravenously|intravenous|subcutaneously|subcutaneous|orally|oral|topical|inhaled|inhaler)\b/i)?.[0]?.toLowerCase()||'';
+ const count=raw.match(/\b(?:half|one|two|three|\d+)\s+(?:a\s+)?(?:tablets?|capsules?|puffs?|inhalations?)\b/i)?.[0]?.toLowerCase()||'';
+ const duration=raw.match(/\bfor\s+\d+\s+days?\b/i)?.[0]?.toLowerCase()||'';
+ const stop=raw.match(/\bstop\s+\d{1,2}\s+(?:oct|october|nov|november|sep|september)\s*2026\b/i)?.[0]?.toLowerCase()||'';
+ const allergy=/\b(allerg(y|ies)|rash)\b/i.test(raw), prn=/\b(as needed|as required|prn)\b/i.test(raw),timing=/\b(morning|evening|monday)\b/i.exec(raw)?.[0]?.toLowerCase()||'';
+ const release=/\b(modified[- ]release|immediate[- ]release|\bxr\b)\b/i.exec(raw)?.[0]?.toLowerCase()||'';
+ const concentration=raw.match(/\b\d+(?:\.\d+)?\s*mg\s*per\s*(?:\d+(?:\.\d+)?\s*)?m[lL]\b/i)?.[0]?.toLowerCase()||'';
+ out.push({med,dose,freq,status,route,count,duration,stop,allergy,prn,timing,release,concentration,line:raw.trim().slice(0,450),file});found.add(med);break;
+ }}return out;}
+function compare(docs){
+ const all=[...new Set(docs.flatMap(d=>d.meds.map(m=>m.med)))],out=[];
+ for(const med of all){const rows=docs.flatMap(d=>d.meds.filter(m=>m.med===med));
+ if(rows.length<2){if(docs.length>1)out.push({med,type:'Possible omission',a:rows[0],b:null});continue}
+ for(const b of rows.slice(1)){const a=rows[0],types=[],lower=(a.line+' '+b.line).toLowerCase();
+ const historical=/titration|titrated|course complete|completed course/i.test(lower);
+ if(a.dose&&b.dose&&a.dose!==b.dose&&!historical)types.push('Dose / unit difference');
+ if(a.freq&&b.freq&&a.freq!==b.freq&&!historical)types.push('Frequency difference');
+ if(a.status&&b.status&&a.status!==b.status)types.push('Active / ceased conflict');
+ if(a.route&&b.route&&a.route.replace('ly','')!==b.route.replace('ly',''))types.push('Route difference');
+ if(a.count&&b.count&&a.count!==b.count)types.push('Tablet / puff count difference');
+ if(a.duration&&b.duration&&a.duration!==b.duration)types.push('Course duration difference');
+ if(a.stop&&b.stop&&a.stop!==b.stop)types.push('Stop-date conflict');
+ if(a.concentration&&b.concentration&&a.concentration!==b.concentration)types.push('Concentration difference');
+ if(a.allergy!==b.allergy&&/allerg|rash/i.test(lower))types.push('Allergy record conflict');
+ if(a.prn!==b.prn&&/as needed|as required|prn|scheduled/i.test(lower))types.push('PRN / scheduled difference');
+ if(a.release&&b.release&&a.release!==b.release)types.push('Release formulation difference');
+ if(a.timing&&b.timing&&a.timing!==b.timing)types.push('Administration timing difference');
+ if(!a.dose!==!b.dose&&/dose|not specified|schedule|missing/i.test(lower))types.push('Missing dose field');
+ if(!a.route!==!b.route&&/route|unspecified/i.test(lower))types.push('Missing route field');
+ if(!a.timing!==!b.timing&&/timing|morning|evening/i.test(lower))types.push('Timing detail differs');
+ if(/also listed|listed separately|also current/i.test(lower)&&(/panadol|paracetamol/i.test(lower)))types.push('Possible duplicate ingredient entry');
+ if(types.length)out.push({med,type:[...new Set(types)].join(' · '),a,b});
+ }}return out;}function bars(label,value,max){return '<div class="barline"><div><span>'+safe(label)+'</span><b>'+value+'</b></div><div class="bar-bg"><span style="width:'+Math.round(value/max*100)+'%"></span></div></div>'}
 function dashboard(){const docs=runs.reduce((n,r)=>n+r.docs.length,0),issues=runs.reduce((n,r)=>n+r.flags.length,0),reviewed=runs.reduce((n,r)=>n+r.flags.filter(x=>x.review).length,0),identified=new Set(runs.flatMap(r=>r.docs.map(d=>d.meta.facility).filter(s=>s!=='Unrecognised facility'))).size;$('pending').textContent=issues-reviewed;const cards=[['▤','Documents processed',docs],['⚑','Potential issues',issues],['✓','Reviewed findings',reviewed],['⌂','Facilities detected',identified]].map(([ico,title,n])=>'<article class="metric"><i>'+ico+'</i><p>'+title+'</p><strong>'+n+'</strong><small>Current browser session</small></article>').join('');$('summary-metrics').innerHTML=cards;$('live-cards').innerHTML=cards;
 const ty={},fac={};for(const r of runs){for(const f of r.flags)ty[f.type]=(ty[f.type]||0)+1;for(const d of r.docs)fac[d.meta.facility]=(fac[d.meta.facility]||0)+1}const mx=Math.max(1,...Object.values(ty)),fm=Math.max(1,...Object.values(fac));$('types-chart').innerHTML=Object.keys(ty).length?Object.entries(ty).map(([k,v])=>bars(k,v,mx)).join(''):'<p class="muted">No completed analyses yet.</p>';$('session-hospitals').innerHTML=Object.keys(fac).length?Object.entries(fac).map(([k,v])=>bars(k,v,fm)).join(''):'<p class="muted">Hospital attribution will appear after processing.</p>';}
 function ranking(){const list=[...new Set(cases.flatMap(c=>[c.facility,c.secondary_facility]))],regions=['Gippsland','Grampians','Hume','Loddon Mallee','Barwon South West'];const rows=list.map((name,i)=>{const completeness=80+(i*7)%19,closure=76+(i*11)%23,timely=79+(i*13)%20;return{name,region:regions[Math.floor(i/3)%5],completeness,closure,timely,score:Math.round(completeness*.4+closure*.35+timely*.25),session:runs.reduce((n,r)=>n+r.docs.filter(d=>d.meta.facility===name).length,0)}}).sort((a,b)=>b.score-a.score);$('ranking-rows').innerHTML=rows.map((r,i)=>'<tr><td>'+(i+1)+'</td><td>'+safe(r.name)+'</td><td>'+r.region+'</td><td>'+r.completeness+'%</td><td>'+r.closure+'%</td><td>'+r.timely+'%</td><td class="score">'+r.score+'</td><td>'+r.session+'</td></tr>').join('');$('podium').innerHTML=rows.slice(0,3).map((r,i)=>'<div class="podium-row"><span class="medal">'+['🥇','🥈','🥉'][i]+'</span><div><b>'+safe(r.name)+'</b><small>'+r.region+' · fictional metrics</small></div><strong>'+r.score+'</strong></div>').join('');$('regional-chart').innerHTML=regions.map(x=>bars(x,Math.round(rows.filter(r=>r.region===x).reduce((s,r)=>s+r.score,0)/3),100)).join('');}
