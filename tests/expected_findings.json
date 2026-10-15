@@ -1,0 +1,30 @@
+{
+  "synthetic": true,
+  "patient": "Alex Example",
+  "findings": [
+    {
+      "medicine": "apixaban",
+      "type": "dose mismatch",
+      "hospital": "5 mg twice daily",
+      "gp": "2.5 mg twice daily"
+    },
+    {
+      "medicine": "metformin XR",
+      "type": "frequency mismatch",
+      "hospital": "500 mg once daily",
+      "gp": "500 mg twice daily"
+    },
+    {
+      "medicine": "ramipril",
+      "type": "status conflict",
+      "hospital": "ceased",
+      "gp": "current"
+    }
+  ],
+  "non_findings": [
+    "amlodipine: same instructions",
+    "Eliquis and apixaban: same ingredient",
+    "historical ramipril dispensing predates cessation"
+  ],
+  "notice": "Fictional dataset only. Differences require human interpretation; never prescribe from results."
+}
