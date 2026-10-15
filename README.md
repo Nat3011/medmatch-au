@@ -1,52 +1,46 @@
-# MedMatch AU — Version 2
+# MedMatch AU — Regional medication document quality prototype
 
-A polished, mobile-responsive Australian medication-document consistency **synthetic demo**. Repository owner: **Nat3011**.
+**Owner:** Nat3011. **Demo network:** 15 entirely fictional facilities across five Victorian regions.
 
-## Live site
+## Open the website
+If GitHub Pages is enabled: https://nat3011.github.io/medmatch-au/
 
-If GitHub Pages is enabled (Settings → Pages → Deploy from a branch → main → /(root)):
+## Current browser application
 
-https://nat3011.github.io/medmatch-au/
+- Clean clinical landing page explaining the patient document journey.
+- Document intake for 2–8 **synthetic** PDF, TXT, PNG or JPG records (up to 12 MB each), with a facility selector.
+- Browser-side PDF text parsing using PDF.js and scanned-document/image OCR fallback using Tesseract.js. These libraries are loaded from CDNs; internet connectivity is required.
+- Actual processing stages reflect ingestion, extraction, comparison and result preparation. Processing failures are reported, not disguised as success.
+- Rule-based matching of a *limited demonstration vocabulary* of medicine names and brands, doses/units, frequency, route, status and potential omissions.
+- Evidence linked to extracted document statements, reviewer actions (confirmed/dismissed/uncertain), JSON report export.
+- Session-level dashboards showing counts of processed documents, detected flags and reviewed findings.
+- Separate fictional regional dashboard with 15 mock facilities and **explicitly invented** historical KPI values.
+- 20 fictional test cases in `tests/twenty_cases.json`.
 
-## Features
+### Try the upload functionality
+1. Open **Document intake**.
+2. Select a fictional facility and choose at least two **fictional** PDF/TXT/image records for one case.
+3. Select **Extract & compare documents**. If OCR is needed, it will run in-browser when the library is available.
+4. Follow the Processing page, then open **Clinical review** to view potential differences and original extracted statements.
+5. Review and export the session report; view updates in **Quality analytics**.
 
-- Healthcare-themed landing page with custom vector graphics, four KPI cards and workflow infographic.
-- Six navigation sections: Overview, Document workspace, Processing centre, Findings & review, Analytics dashboard and About & safety.
-- Browser-based file selection and drag-and-drop staging. **Files are not read, transmitted, OCR-processed or analysed.**
-- Explicitly simulated progress through intake, OCR, extraction, comparison and summary steps for the synthetic example case.
-- Predefined discrepancy findings for apixaban dose, metformin XR frequency and ramipril status. Each finding displays the two source statements and suggested clinician verification steps.
-- Clinician-review disposition buttons: Confirmed discrepancy, Dismissed and Uncertain. Review actions are stored in the current browser session only.
-- Local download of a synthetic review summary; dashboard status reflects user review actions.
-- Responsive UI in plain HTML, CSS and JavaScript; GitHub Pages compatible without a build step.
+For quick setup, choose a predefined example and run it using the same rule engine.
 
-## How to test
+### Tested extraction behaviour
+A structured-text smoke test found exactly three discrepancies from a paired fictional set: lisinopril active/ceased; levothyroxine 50 mcg/50 mg; metformin twice/three times daily. Amlodipine remained consistent. This is a developer smoke test, **not** clinical validation or an end-to-end scanned-PDF test.
 
-1. Open the live site or open `index.html` locally.
-2. Choose **Document workspace → Run synthetic example workflow**.
-3. Watch the explicitly *illustrative* processing timeline, then open **Findings & review**.
-4. Switch among the three findings, choose review statuses, and export review notes.
-5. Open **Analytics dashboard** and confirm the reviewed count updates.
-6. Optionally stage fictional files in the uploader and verify they are marked **Staged only · not processed**.
+## What's not implemented
+- No production backend, database, secure user identity, or automated routing of real hospital messages.
+- No LLM interpretation, clinical-context inference or certified medicine reconciliation.
+- No live AMT/PBS/TGA API lookup. PBS is a subsidy listing, ARTG describes approved products, and AMT supports normalised identity; **none is a standalone patient-specific dosing standard**.
+- No verified detection sensitivity, precision or clinical accuracy rate. Regional 92% score and facility metrics are synthetic illustration.
+- Rules may miss entries in unusual layouts, falsely flag changes, or confuse dose strength with administered dose; OCR quality varies.
 
-## Source data
+## Safety
+The app is **for fictional/safely de-identified training documents only**. Never upload real identifiable health information to this public GitHub Pages demo. Extraction runs in the browser but third-party CDN libraries are fetched. The prototype cannot determine correct treatment or medication safety. Every finding requires qualified review. No uploaded document content is persisted in GitHub or a backend, and session metrics clear when the page reloads.
 
-See `samples/` for three fictional record examples in Markdown and `tests/expected_findings.json` for the intended findings and non-findings.
+## Suggested real-world architecture
+Private authenticated app; hardened document ingestion; encrypted storage with deletion policies; OCR and schema-validated multimodal model extraction; AMT terminology integration under NCTS terms; official PBS/TGA product lookups; chronological cross-document rules; evidence provenance; reviewer audit trails; security, privacy and TGA medical software regulatory assessment.
 
-## Next implementation stage
+Static front end: `index.html`, `portal.css`, `portal.js`. Previous `app.js` and `styles.css` are retained for history but are no longer loaded.
 
-Replace the simulated pipeline with a **real**, security-reviewed upload/OCR/structured extraction service and deterministic comparison engine. Proposed architecture: Next.js + FastAPI; Australian Medicines Terminology (subject to licensing) with TGA/ARTG and PBS as supplementary product reference context. Capture document evidence and date-specific status for every result.
-
-## Safety notice
-
-This is not a clinical device or clinical advice. No actual patient documents should be used. No OCR or LLM analysis currently occurs, and the statistics are synthetic-case indicators, not real usage analytics. Never use the demo to change medication. Clinical, privacy, security and regulatory evaluation must precede any patient-data deployment.
-
-## Extended 20-case evaluation library
-
-The **Test case library** navigation tab displays 20 fictional Australian-style examples, including status/cessation conflicts, levothyroxine microgram-to-milligram unit mismatch, metformin frequency, Symbicort-versus-budesonide ingredient overlap, strength, route, modified-release formulation, omissions, allergy reconciliation, as-needed instructions, brand/generic aliases, insulin units, antibiotic duration, weekly versus daily schedules, stop date, missing dose, chronology, administration timing, and tablet fractions.
-
-- Machine-readable cases: `tests/twenty_cases.json`
-- Paired human-readable synthetic document excerpts: `samples/20-case-document-pairs.md`
-- A companion downloadable ZIP in the development conversation includes **40 individually generated PDFs** plus an answer-key CSV and JSON.
-- **C17 is a non-finding** (Eliquis = apixaban); **C18 is a potentially resolved historical titration**. The Symbicort combination inhaler contains both budesonide and formoterol, so it is not identical to budesonide-only inhaler.
-
-The library is reference/test data for future AI benchmarking. Choosing a case does not execute OCR or LLM inference. Clinical review priorities are illustrative and not prescribing recommendations.
