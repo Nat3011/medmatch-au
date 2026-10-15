@@ -1,46 +1,43 @@
-# MedMatch AU — Regional medication document quality prototype
+# MedMatch AU — Regional medication document intelligence (prototype V4)
 
-**Owner:** Nat3011. **Demo network:** 15 entirely fictional facilities across five Victorian regions.
+**GitHub owner:** Nat3011
 
-## Open the website
-If GitHub Pages is enabled: https://nat3011.github.io/medmatch-au/
+## Website
+https://nat3011.github.io/medmatch-au/
 
-## Current browser application
+## Redesigned user journey
+1. **Home:** welcoming healthcare landing page, concise infographics and browser-session stats.
+2. **Scan documents:** drag in one or more fictional PDFs, images or TXT records; no manual hospital or category dropdowns.
+3. **Automatic recognition:** extract text and infer the hospital (for the 15 known fictional facility names), category, and document date from content. Unrecognised sources are labelled as such rather than invented.
+4. **Processing:** show genuine parsing/OCR and heuristic checking stages, including failures.
+5. **Review centre:** view evidence-linked potential inconsistencies, reviewer status, and a downloadable JSON report.
+6. **Hospital leaderboard:** rank 15 invented Victorian facilities on a **transparent simulated** quality score. Weights: documentation completeness 40%, review closure 35%, workflow timeliness 25%. The historical inputs are fictitious.
+7. **Regional analytics:** show actual browser-session counts separately from simulated regional quality measurements.
+8. **Test case library:** select from **50 paired scenarios** stored in `tests/fifty_cases.json`; each contains two fictional documents with facility headers, dates, patient identifiers, and a separate expected-findings field.
 
-- Clean clinical landing page explaining the patient document journey.
-- Document intake for 2–8 **synthetic** PDF, TXT, PNG or JPG records (up to 12 MB each), with a facility selector.
-- Browser-side PDF text parsing using PDF.js and scanned-document/image OCR fallback using Tesseract.js. These libraries are loaded from CDNs; internet connectivity is required.
-- Actual processing stages reflect ingestion, extraction, comparison and result preparation. Processing failures are reported, not disguised as success.
-- Rule-based matching of a *limited demonstration vocabulary* of medicine names and brands, doses/units, frequency, route, status and potential omissions.
-- Evidence linked to extracted document statements, reviewer actions (confirmed/dismissed/uncertain), JSON report export.
-- Session-level dashboards showing counts of processed documents, detected flags and reviewed findings.
-- Separate fictional regional dashboard with 15 mock facilities and **explicitly invented** historical KPI values.
-- 20 fictional test cases in `tests/twenty_cases.json`.
+## Run and test
+- Open the GitHub Pages site, or serve the repository root through `python3 -m http.server 8000`.
+- Choose **Test case library**, select a case and click **Process these documents**.
+- Watch automatic facility and document-type recognition; view extracted medication mismatches and inspect review recommendations.
+- In **Scan documents**, upload the paired fictional PDF files from the companion ZIP or upload your own safely de-identified test fixtures.
+- Note: PDFs use PDF.js and scanned documents use Tesseract.js loaded from CDNs. Offline mode is not supported.
+- All application state lives in the browser session and is lost on reload. There is no database or background hospital feed.
 
-### Try the upload functionality
-1. Open **Document intake**.
-2. Select a fictional facility and choose at least two **fictional** PDF/TXT/image records for one case.
-3. Select **Extract & compare documents**. If OCR is needed, it will run in-browser when the library is available.
-4. Follow the Processing page, then open **Clinical review** to view potential differences and original extracted statements.
-5. Review and export the session report; view updates in **Quality analytics**.
+## Important limitations
+**This is not a production clinical model.** Detection is heuristic/rule-based with a small medicine vocabulary, not a trained LLM doing clinical reasoning. It can miss dose formulation details, allergy interpretation, combination therapies, subtle chronology and numerous edge cases. The 50-case answer key represents testing expectations rather than measured performance.
 
-For quick setup, choose a predefined example and run it using the same rule engine.
+Australian Medicines Terminology, PBS and TGA are explained on the About page but have **not been integrated as live data validation services**. PBS subsidy data and TGA registration alone cannot establish a correct patient-specific prescription.
 
-### Tested extraction behaviour
-A structured-text smoke test found exactly three discrepancies from a paired fictional set: lisinopril active/ceased; levothyroxine 50 mcg/50 mg; metformin twice/three times daily. Amlodipine remained consistent. This is a developer smoke test, **not** clinical validation or an end-to-end scanned-PDF test.
+Do not upload identifiable patient records or interpret results as clinical advice. Browser OCR/PDF libraries come from third-party CDNs. Proper privacy, cybersecurity, regulatory, terminology licensing and clinician validation are needed before real use.
 
-## What's not implemented
-- No production backend, database, secure user identity, or automated routing of real hospital messages.
-- No LLM interpretation, clinical-context inference or certified medicine reconciliation.
-- No live AMT/PBS/TGA API lookup. PBS is a subsidy listing, ARTG describes approved products, and AMT supports normalised identity; **none is a standalone patient-specific dosing standard**.
-- No verified detection sensitivity, precision or clinical accuracy rate. Regional 92% score and facility metrics are synthetic illustration.
-- Rules may miss entries in unusual layouts, falsely flag changes, or confuse dose strength with administered dose; OCR quality varies.
+## Files
+- `index.html`: current UI.
+- `command.css`: current responsive layout and dashboards.
+- `command.js`: automatic classification, in-browser extraction/comparison, session metrics and review workflow.
+- `tests/fifty_cases.json`: 50 synthetic cases with 100 text document fixtures.
+- `tests/twenty_cases.json`: legacy 20-case benchmark.
+- A companion ZIP downloadable from the project conversation contains **100 individual PDFs**, an answer key and case metadata.
+- Previous `portal.js`, `portal.css`, `app.js`, `styles.css` are historical and not loaded.
 
-## Safety
-The app is **for fictional/safely de-identified training documents only**. Never upload real identifiable health information to this public GitHub Pages demo. Extraction runs in the browser but third-party CDN libraries are fetched. The prototype cannot determine correct treatment or medication safety. Every finding requires qualified review. No uploaded document content is persisted in GitHub or a backend, and session metrics clear when the page reloads.
-
-## Suggested real-world architecture
-Private authenticated app; hardened document ingestion; encrypted storage with deletion policies; OCR and schema-validated multimodal model extraction; AMT terminology integration under NCTS terms; official PBS/TGA product lookups; chronological cross-document rules; evidence provenance; reviewer audit trails; security, privacy and TGA medical software regulatory assessment.
-
-Static front end: `index.html`, `portal.css`, `portal.js`. Previous `app.js` and `styles.css` are retained for history but are no longer loaded.
-
+## Recommended next phase
+Create a secured backend with OCR quality evaluation, model-based structured document classification/extraction, terminology services (AMT), source provenance, identity verification, audit logs, versioned medication reconciliation, test harness across the 50 cases, and expert-reviewed sensitivity/precision measurement. The hospital score should only use agreed, validated quality metrics and appropriate case-mix adjustments before it is treated as comparative performance evidence.
