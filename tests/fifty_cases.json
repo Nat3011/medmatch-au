@@ -1,0 +1,1524 @@
+{
+  "title": "MedMatch AU — 50 fictional paired document tests",
+  "disclaimer": "All facilities and patients fictional. Expected flags denote review questions, not established clinical errors.",
+  "count": 50,
+  "facilities": [
+    "Wattle Creek District Hospital",
+    "Banksia Valley Health Centre",
+    "Merri Plains Community Hospital",
+    "Silvergum Base Hospital",
+    "Westhaven Regional Medical Centre",
+    "Golden Wattle Community Clinic",
+    "Ironbark River Hospital",
+    "Highland Fern Health Service",
+    "Kestrel Grove Medical Centre",
+    "Marshland Bay Hospital",
+    "Redbank Plains Health Centre",
+    "Riverstone Springs Hospital",
+    "Coastal Banksia Hospital",
+    "Moonah Ridge Medical Centre",
+    "Otway Fields Community Hospital"
+  ],
+  "records": [
+    {
+      "id": "C01",
+      "title": "Discontinued medicine remains active",
+      "category": "status_conflict",
+      "medication": "Lisinopril",
+      "source_a": "Lisinopril 10 mg orally once daily — ACTIVE",
+      "source_b": "Lisinopril 10 mg orally once daily — CEASED after discharge review",
+      "recommendation": "Flag status conflict; confirm current plan",
+      "caution": "Older GP record may be stale",
+      "expected_flag": true,
+      "facility": "Wattle Creek District Hospital",
+      "secondary_facility": "Silvergum Base Hospital",
+      "patient": "Demo Patient 001",
+      "documents": [
+        {
+          "filename": "C01_A.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Wattle Creek District Hospital",
+          "record_date": "01 October 2026",
+          "text": "Wattle Creek District Hospital\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 001\nDocument date: 01 October 2026\nMedication: Lisinopril 10 mg orally once daily — ACTIVE\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C01_B.txt",
+          "type": "GP Medication List",
+          "facility": "Silvergum Base Hospital",
+          "record_date": "13 October 2026",
+          "text": "Silvergum Base Hospital\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 001\nDocument date: 13 October 2026\nMedication: Lisinopril 10 mg orally once daily — CEASED after discharge review\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C02",
+      "title": "Microgram versus milligram error",
+      "category": "unit_mismatch",
+      "medication": "Levothyroxine",
+      "source_a": "Levothyroxine 50 micrograms orally every morning",
+      "source_b": "Levothyroxine 50 mg orally every morning",
+      "recommendation": "Urgent verification of 1000-fold unit discrepancy",
+      "caution": "Do not infer intended instruction",
+      "expected_flag": true,
+      "facility": "Banksia Valley Health Centre",
+      "secondary_facility": "Westhaven Regional Medical Centre",
+      "patient": "Demo Patient 002",
+      "documents": [
+        {
+          "filename": "C02_A.txt",
+          "type": "GP Medication List",
+          "facility": "Banksia Valley Health Centre",
+          "record_date": "02 October 2026",
+          "text": "Banksia Valley Health Centre\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 002\nDocument date: 02 October 2026\nMedication: Levothyroxine 50 micrograms orally every morning\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C02_B.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Westhaven Regional Medical Centre",
+          "record_date": "14 October 2026",
+          "text": "Westhaven Regional Medical Centre\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 002\nDocument date: 14 October 2026\nMedication: Levothyroxine 50 mg orally every morning\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C03",
+      "title": "Frequency differs",
+      "category": "frequency_mismatch",
+      "medication": "Metformin",
+      "source_a": "Metformin 500 mg orally twice daily",
+      "source_b": "Metformin 500 mg orally three times daily",
+      "recommendation": "Verify intended frequency",
+      "caution": "Document chronology matters",
+      "expected_flag": true,
+      "facility": "Merri Plains Community Hospital",
+      "secondary_facility": "Golden Wattle Community Clinic",
+      "patient": "Demo Patient 003",
+      "documents": [
+        {
+          "filename": "C03_A.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Merri Plains Community Hospital",
+          "record_date": "03 October 2026",
+          "text": "Merri Plains Community Hospital\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 003\nDocument date: 03 October 2026\nMedication: Metformin 500 mg orally twice daily\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C03_B.txt",
+          "type": "Specialist Letter",
+          "facility": "Golden Wattle Community Clinic",
+          "record_date": "15 October 2026",
+          "text": "Golden Wattle Community Clinic\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 003\nDocument date: 15 October 2026\nMedication: Metformin 500 mg orally three times daily\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C04",
+      "title": "Combination inhaler ingredient overlap",
+      "category": "ingredient_overlap",
+      "medication": "Symbicort / budesonide",
+      "source_a": "Symbicort budesonide/formoterol 200/6 micrograms, 2 inhalations twice daily",
+      "source_b": "Budesonide 200 micrograms, 2 inhalations twice daily; also active",
+      "recommendation": "Review possible overlapping budesonide exposure",
+      "caution": "Different products: Symbicort also contains formoterol",
+      "expected_flag": true,
+      "facility": "Silvergum Base Hospital",
+      "secondary_facility": "Ironbark River Hospital",
+      "patient": "Demo Patient 004",
+      "documents": [
+        {
+          "filename": "C04_A.txt",
+          "type": "Specialist Letter",
+          "facility": "Silvergum Base Hospital",
+          "record_date": "04 October 2026",
+          "text": "Silvergum Base Hospital\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 004\nDocument date: 04 October 2026\nMedication: Symbicort budesonide/formoterol 200/6 micrograms, 2 inhalations twice daily\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C04_B.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Ironbark River Hospital",
+          "record_date": "13 October 2026",
+          "text": "Ironbark River Hospital\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 004\nDocument date: 13 October 2026\nMedication: Budesonide 200 micrograms, 2 inhalations twice daily; also active\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C05",
+      "title": "Different tablet strength",
+      "category": "strength_mismatch",
+      "medication": "Amlodipine",
+      "source_a": "Amlodipine 5 mg tablet, one daily",
+      "source_b": "Amlodipine 10 mg tablet, one daily",
+      "recommendation": "Check current strength",
+      "caution": "May be legitimate titration",
+      "expected_flag": true,
+      "facility": "Westhaven Regional Medical Centre",
+      "secondary_facility": "Highland Fern Health Service",
+      "patient": "Demo Patient 005",
+      "documents": [
+        {
+          "filename": "C05_A.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Westhaven Regional Medical Centre",
+          "record_date": "05 October 2026",
+          "text": "Westhaven Regional Medical Centre\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 005\nDocument date: 05 October 2026\nMedication: Amlodipine 5 mg tablet, one daily\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C05_B.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Highland Fern Health Service",
+          "record_date": "14 October 2026",
+          "text": "Highland Fern Health Service\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 005\nDocument date: 14 October 2026\nMedication: Amlodipine 10 mg tablet, one daily\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C06",
+      "title": "Route differs",
+      "category": "route_mismatch",
+      "medication": "Ondansetron",
+      "source_a": "Ondansetron 4 mg orally every 8 hours as required",
+      "source_b": "Ondansetron 4 mg intravenously every 8 hours as required",
+      "recommendation": "Verify route and setting",
+      "caution": "Inpatient and outpatient contexts differ",
+      "expected_flag": true,
+      "facility": "Golden Wattle Community Clinic",
+      "secondary_facility": "Kestrel Grove Medical Centre",
+      "patient": "Demo Patient 006",
+      "documents": [
+        {
+          "filename": "C06_A.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Golden Wattle Community Clinic",
+          "record_date": "06 October 2026",
+          "text": "Golden Wattle Community Clinic\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 006\nDocument date: 06 October 2026\nMedication: Ondansetron 4 mg orally every 8 hours as required\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C06_B.txt",
+          "type": "GP Medication List",
+          "facility": "Kestrel Grove Medical Centre",
+          "record_date": "15 October 2026",
+          "text": "Kestrel Grove Medical Centre\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 006\nDocument date: 15 October 2026\nMedication: Ondansetron 4 mg intravenously every 8 hours as required\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C07",
+      "title": "Immediate versus modified release",
+      "category": "formulation_mismatch",
+      "medication": "Metoprolol",
+      "source_a": "Metoprolol tartrate 50 mg twice daily",
+      "source_b": "Metoprolol succinate modified-release 50 mg once daily",
+      "recommendation": "Check formulation and frequency",
+      "caution": "Not interchangeable by name alone",
+      "expected_flag": true,
+      "facility": "Ironbark River Hospital",
+      "secondary_facility": "Marshland Bay Hospital",
+      "patient": "Demo Patient 007",
+      "documents": [
+        {
+          "filename": "C07_A.txt",
+          "type": "GP Medication List",
+          "facility": "Ironbark River Hospital",
+          "record_date": "07 October 2026",
+          "text": "Ironbark River Hospital\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 007\nDocument date: 07 October 2026\nMedication: Metoprolol tartrate 50 mg twice daily\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C07_B.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Marshland Bay Hospital",
+          "record_date": "13 October 2026",
+          "text": "Marshland Bay Hospital\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 007\nDocument date: 13 October 2026\nMedication: Metoprolol succinate modified-release 50 mg once daily\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C08",
+      "title": "Anticoagulant missing from second list",
+      "category": "omission",
+      "medication": "Apixaban",
+      "source_a": "Apixaban 5 mg twice daily, current",
+      "source_b": "No apixaban recorded in the current list",
+      "recommendation": "Verify apparent omission",
+      "caution": "Missing entry does not prove cessation",
+      "expected_flag": true,
+      "facility": "Highland Fern Health Service",
+      "secondary_facility": "Redbank Plains Health Centre",
+      "patient": "Demo Patient 008",
+      "documents": [
+        {
+          "filename": "C08_A.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Highland Fern Health Service",
+          "record_date": "08 October 2026",
+          "text": "Highland Fern Health Service\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 008\nDocument date: 08 October 2026\nMedication: Apixaban 5 mg twice daily, current\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C08_B.txt",
+          "type": "Specialist Letter",
+          "facility": "Redbank Plains Health Centre",
+          "record_date": "14 October 2026",
+          "text": "Redbank Plains Health Centre\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 008\nDocument date: 14 October 2026\nMedication: No apixaban recorded in the current list\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C09",
+      "title": "Allergy and medication record conflict",
+      "category": "allergy_conflict",
+      "medication": "Amoxicillin",
+      "source_a": "Allergies: amoxicillin — rash documented",
+      "source_b": "Amoxicillin 500 mg orally three times daily active; allergy section blank",
+      "recommendation": "Escalate potential allergy record conflict for review",
+      "caution": "Clinical history requires verification",
+      "expected_flag": true,
+      "facility": "Kestrel Grove Medical Centre",
+      "secondary_facility": "Riverstone Springs Hospital",
+      "patient": "Demo Patient 009",
+      "documents": [
+        {
+          "filename": "C09_A.txt",
+          "type": "Specialist Letter",
+          "facility": "Kestrel Grove Medical Centre",
+          "record_date": "09 October 2026",
+          "text": "Kestrel Grove Medical Centre\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 009\nDocument date: 09 October 2026\nMedication: Allergies: amoxicillin — rash documented\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C09_B.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Riverstone Springs Hospital",
+          "record_date": "15 October 2026",
+          "text": "Riverstone Springs Hospital\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 009\nDocument date: 15 October 2026\nMedication: Amoxicillin 500 mg orally three times daily active; allergy section blank\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C10",
+      "title": "PRN versus scheduled",
+      "category": "prn_vs_scheduled",
+      "medication": "Salbutamol",
+      "source_a": "Salbutamol 100 micrograms, 2 puffs as needed",
+      "source_b": "Salbutamol 100 micrograms, 2 puffs four times daily",
+      "recommendation": "Review intended instructions",
+      "caution": "Plans may be context-specific",
+      "expected_flag": true,
+      "facility": "Marshland Bay Hospital",
+      "secondary_facility": "Coastal Banksia Hospital",
+      "patient": "Demo Patient 010",
+      "documents": [
+        {
+          "filename": "C10_A.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Marshland Bay Hospital",
+          "record_date": "10 October 2026",
+          "text": "Marshland Bay Hospital\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 010\nDocument date: 10 October 2026\nMedication: Salbutamol 100 micrograms, 2 puffs as needed\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C10_B.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Coastal Banksia Hospital",
+          "record_date": "13 October 2026",
+          "text": "Coastal Banksia Hospital\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 010\nDocument date: 13 October 2026\nMedication: Salbutamol 100 micrograms, 2 puffs four times daily\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C11",
+      "title": "Brand and generic duplicate",
+      "category": "brand_generic_duplicate",
+      "medication": "Panadol / paracetamol",
+      "source_a": "Panadol (paracetamol) 500 mg, 2 tablets as needed",
+      "source_b": "Paracetamol 500 mg, 2 tablets as needed listed separately",
+      "recommendation": "Review whether this is one medicine recorded twice",
+      "caution": "Entries do not prove both were taken",
+      "expected_flag": true,
+      "facility": "Redbank Plains Health Centre",
+      "secondary_facility": "Moonah Ridge Medical Centre",
+      "patient": "Demo Patient 011",
+      "documents": [
+        {
+          "filename": "C11_A.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Redbank Plains Health Centre",
+          "record_date": "11 October 2026",
+          "text": "Redbank Plains Health Centre\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 011\nDocument date: 11 October 2026\nMedication: Panadol (paracetamol) 500 mg, 2 tablets as needed\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C11_B.txt",
+          "type": "GP Medication List",
+          "facility": "Moonah Ridge Medical Centre",
+          "record_date": "14 October 2026",
+          "text": "Moonah Ridge Medical Centre\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 011\nDocument date: 14 October 2026\nMedication: Paracetamol 500 mg, 2 tablets as needed listed separately\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C12",
+      "title": "Insulin dose unit confusion",
+      "category": "dose_unit_mismatch",
+      "medication": "Insulin glargine",
+      "source_a": "Insulin glargine 20 units subcutaneously each evening",
+      "source_b": "Insulin glargine 20 mL subcutaneously each evening",
+      "recommendation": "Urgently verify incompatible dose units",
+      "caution": "Never infer correction",
+      "expected_flag": true,
+      "facility": "Riverstone Springs Hospital",
+      "secondary_facility": "Otway Fields Community Hospital",
+      "patient": "Demo Patient 012",
+      "documents": [
+        {
+          "filename": "C12_A.txt",
+          "type": "GP Medication List",
+          "facility": "Riverstone Springs Hospital",
+          "record_date": "12 October 2026",
+          "text": "Riverstone Springs Hospital\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 012\nDocument date: 12 October 2026\nMedication: Insulin glargine 20 units subcutaneously each evening\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C12_B.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Otway Fields Community Hospital",
+          "record_date": "15 October 2026",
+          "text": "Otway Fields Community Hospital\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 012\nDocument date: 15 October 2026\nMedication: Insulin glargine 20 mL subcutaneously each evening\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C13",
+      "title": "Duration conflict",
+      "category": "duration_conflict",
+      "medication": "Cephalexin",
+      "source_a": "Cephalexin 500 mg four times daily for 5 days",
+      "source_b": "Cephalexin 500 mg four times daily for 10 days",
+      "recommendation": "Verify intended course length",
+      "caution": "Later note may supersede earlier note",
+      "expected_flag": true,
+      "facility": "Coastal Banksia Hospital",
+      "secondary_facility": "Wattle Creek District Hospital",
+      "patient": "Demo Patient 013",
+      "documents": [
+        {
+          "filename": "C13_A.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Coastal Banksia Hospital",
+          "record_date": "01 October 2026",
+          "text": "Coastal Banksia Hospital\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 013\nDocument date: 01 October 2026\nMedication: Cephalexin 500 mg four times daily for 5 days\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C13_B.txt",
+          "type": "Specialist Letter",
+          "facility": "Wattle Creek District Hospital",
+          "record_date": "13 October 2026",
+          "text": "Wattle Creek District Hospital\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 013\nDocument date: 13 October 2026\nMedication: Cephalexin 500 mg four times daily for 10 days\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C14",
+      "title": "Weekly versus daily",
+      "category": "schedule_mismatch",
+      "medication": "Alendronate",
+      "source_a": "Alendronate 70 mg every Monday",
+      "source_b": "Alendronate 70 mg every day",
+      "recommendation": "Urgently review frequency",
+      "caution": "Weekly and daily schedules differ greatly",
+      "expected_flag": true,
+      "facility": "Moonah Ridge Medical Centre",
+      "secondary_facility": "Banksia Valley Health Centre",
+      "patient": "Demo Patient 014",
+      "documents": [
+        {
+          "filename": "C14_A.txt",
+          "type": "Specialist Letter",
+          "facility": "Moonah Ridge Medical Centre",
+          "record_date": "02 October 2026",
+          "text": "Moonah Ridge Medical Centre\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 014\nDocument date: 02 October 2026\nMedication: Alendronate 70 mg every Monday\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C14_B.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Banksia Valley Health Centre",
+          "record_date": "14 October 2026",
+          "text": "Banksia Valley Health Centre\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 014\nDocument date: 14 October 2026\nMedication: Alendronate 70 mg every day\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C15",
+      "title": "Stop date disagreement",
+      "category": "stop_date_conflict",
+      "medication": "Prednisolone",
+      "source_a": "Prednisolone 5 mg daily, stop 18 October 2026",
+      "source_b": "Prednisolone 5 mg daily, stop 25 October 2026",
+      "recommendation": "Verify whether treatment was intentionally extended",
+      "caution": "Date and rationale matter",
+      "expected_flag": true,
+      "facility": "Otway Fields Community Hospital",
+      "secondary_facility": "Merri Plains Community Hospital",
+      "patient": "Demo Patient 015",
+      "documents": [
+        {
+          "filename": "C15_A.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Otway Fields Community Hospital",
+          "record_date": "03 October 2026",
+          "text": "Otway Fields Community Hospital\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 015\nDocument date: 03 October 2026\nMedication: Prednisolone 5 mg daily, stop 18 October 2026\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C15_B.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Merri Plains Community Hospital",
+          "record_date": "15 October 2026",
+          "text": "Merri Plains Community Hospital\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 015\nDocument date: 15 October 2026\nMedication: Prednisolone 5 mg daily, stop 25 October 2026\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C16",
+      "title": "Dose missing from one record",
+      "category": "missing_dose",
+      "medication": "Warfarin",
+      "source_a": "Warfarin: according to attached anticoagulation schedule",
+      "source_b": "Warfarin every evening; no dose or attached schedule",
+      "recommendation": "Request authoritative dosing schedule",
+      "caution": "Never fabricate warfarin dose",
+      "expected_flag": true,
+      "facility": "Wattle Creek District Hospital",
+      "secondary_facility": "Silvergum Base Hospital",
+      "patient": "Demo Patient 016",
+      "documents": [
+        {
+          "filename": "C16_A.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Wattle Creek District Hospital",
+          "record_date": "04 October 2026",
+          "text": "Wattle Creek District Hospital\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 016\nDocument date: 04 October 2026\nMedication: Warfarin: according to attached anticoagulation schedule\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C16_B.txt",
+          "type": "GP Medication List",
+          "facility": "Silvergum Base Hospital",
+          "record_date": "13 October 2026",
+          "text": "Silvergum Base Hospital\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 016\nDocument date: 13 October 2026\nMedication: Warfarin every evening; no dose or attached schedule\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C17",
+      "title": "Brand equivalence non-finding",
+      "category": "brand_alias",
+      "medication": "Eliquis / apixaban",
+      "source_a": "Eliquis 5 mg twice daily",
+      "source_b": "Apixaban 5 mg twice daily",
+      "recommendation": "Do not flag dose mismatch",
+      "caution": "Eliquis is an apixaban brand",
+      "expected_flag": false,
+      "facility": "Banksia Valley Health Centre",
+      "secondary_facility": "Westhaven Regional Medical Centre",
+      "patient": "Demo Patient 017",
+      "documents": [
+        {
+          "filename": "C17_A.txt",
+          "type": "GP Medication List",
+          "facility": "Banksia Valley Health Centre",
+          "record_date": "05 October 2026",
+          "text": "Banksia Valley Health Centre\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 017\nDocument date: 05 October 2026\nMedication: Eliquis 5 mg twice daily\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C17_B.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Westhaven Regional Medical Centre",
+          "record_date": "14 October 2026",
+          "text": "Westhaven Regional Medical Centre\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 017\nDocument date: 14 October 2026\nMedication: Apixaban 5 mg twice daily\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C18",
+      "title": "Historical titration non-finding",
+      "category": "chronology_context",
+      "medication": "Ramipril",
+      "source_a": "Ramipril 2.5 mg daily on 1 October 2026",
+      "source_b": "Ramipril 5 mg daily; documented cardiology titration on 14 October 2026",
+      "recommendation": "Mark as potentially resolved historical change",
+      "caution": "Chronology explains dose change",
+      "expected_flag": false,
+      "facility": "Merri Plains Community Hospital",
+      "secondary_facility": "Golden Wattle Community Clinic",
+      "patient": "Demo Patient 018",
+      "documents": [
+        {
+          "filename": "C18_A.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Merri Plains Community Hospital",
+          "record_date": "06 October 2026",
+          "text": "Merri Plains Community Hospital\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 018\nDocument date: 06 October 2026\nMedication: Ramipril 2.5 mg daily on 1 October 2026\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C18_B.txt",
+          "type": "Specialist Letter",
+          "facility": "Golden Wattle Community Clinic",
+          "record_date": "15 October 2026",
+          "text": "Golden Wattle Community Clinic\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 018\nDocument date: 15 October 2026\nMedication: Ramipril 5 mg daily; documented cardiology titration on 14 October 2026\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C19",
+      "title": "Timing difference",
+      "category": "timing_mismatch",
+      "medication": "Atorvastatin",
+      "source_a": "Atorvastatin 40 mg every morning",
+      "source_b": "Atorvastatin 40 mg every evening",
+      "recommendation": "Clarify differing instructions",
+      "caution": "Clinical significance is not established",
+      "expected_flag": true,
+      "facility": "Silvergum Base Hospital",
+      "secondary_facility": "Ironbark River Hospital",
+      "patient": "Demo Patient 019",
+      "documents": [
+        {
+          "filename": "C19_A.txt",
+          "type": "Specialist Letter",
+          "facility": "Silvergum Base Hospital",
+          "record_date": "07 October 2026",
+          "text": "Silvergum Base Hospital\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 019\nDocument date: 07 October 2026\nMedication: Atorvastatin 40 mg every morning\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C19_B.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Ironbark River Hospital",
+          "record_date": "13 October 2026",
+          "text": "Ironbark River Hospital\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 019\nDocument date: 13 October 2026\nMedication: Atorvastatin 40 mg every evening\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "C20",
+      "title": "Tablet fraction different",
+      "category": "tablet_count_mismatch",
+      "medication": "Furosemide",
+      "source_a": "Furosemide 40 mg tablet: take half each morning",
+      "source_b": "Furosemide 40 mg tablet: take one each morning",
+      "recommendation": "Compare administered doses 20 mg and 40 mg",
+      "caution": "Strength is not the same as administered dose",
+      "expected_flag": true,
+      "facility": "Westhaven Regional Medical Centre",
+      "secondary_facility": "Highland Fern Health Service",
+      "patient": "Demo Patient 020",
+      "documents": [
+        {
+          "filename": "C20_A.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Westhaven Regional Medical Centre",
+          "record_date": "08 October 2026",
+          "text": "Westhaven Regional Medical Centre\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 020\nDocument date: 08 October 2026\nMedication: Furosemide 40 mg tablet: take half each morning\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "C20_B.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Highland Fern Health Service",
+          "record_date": "14 October 2026",
+          "text": "Highland Fern Health Service\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 020\nDocument date: 14 October 2026\nMedication: Furosemide 40 mg tablet: take one each morning\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F21",
+      "title": "Omeprazole versus pantoprazole therapeutic overlap",
+      "category": "therapeutic_overlap",
+      "medication": "Proton pump inhibitors",
+      "source_a": "Omeprazole 20 mg once daily listed current",
+      "source_b": "Pantoprazole 40 mg once daily also listed current",
+      "recommendation": "Review potential duplicate acid suppression and intent",
+      "caution": "Distinct ingredients in same class",
+      "expected_flag": true,
+      "facility": "Golden Wattle Community Clinic",
+      "secondary_facility": "Kestrel Grove Medical Centre",
+      "patient": "Demo Patient 021",
+      "documents": [
+        {
+          "filename": "F21_A.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Golden Wattle Community Clinic",
+          "record_date": "09 October 2026",
+          "text": "Golden Wattle Community Clinic\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 021\nDocument date: 09 October 2026\nMedication: Omeprazole 20 mg once daily listed current\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F21_B.txt",
+          "type": "GP Medication List",
+          "facility": "Kestrel Grove Medical Centre",
+          "record_date": "15 October 2026",
+          "text": "Kestrel Grove Medical Centre\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 021\nDocument date: 15 October 2026\nMedication: Pantoprazole 40 mg once daily also listed current\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F22",
+      "title": "Aspirin status mismatch",
+      "category": "status_conflict",
+      "medication": "Aspirin",
+      "source_a": "Aspirin 100 mg daily ACTIVE",
+      "source_b": "Aspirin 100 mg daily CEASED",
+      "recommendation": "Confirm cessation and update lists",
+      "caution": "Chronology may explain",
+      "expected_flag": true,
+      "facility": "Ironbark River Hospital",
+      "secondary_facility": "Marshland Bay Hospital",
+      "patient": "Demo Patient 022",
+      "documents": [
+        {
+          "filename": "F22_A.txt",
+          "type": "GP Medication List",
+          "facility": "Ironbark River Hospital",
+          "record_date": "10 October 2026",
+          "text": "Ironbark River Hospital\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 022\nDocument date: 10 October 2026\nMedication: Aspirin 100 mg daily ACTIVE\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F22_B.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Marshland Bay Hospital",
+          "record_date": "13 October 2026",
+          "text": "Marshland Bay Hospital\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 022\nDocument date: 13 October 2026\nMedication: Aspirin 100 mg daily CEASED\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F23",
+      "title": "Different gabapentin frequency",
+      "category": "frequency_mismatch",
+      "medication": "Gabapentin",
+      "source_a": "Gabapentin 300 mg twice daily",
+      "source_b": "Gabapentin 300 mg three times daily",
+      "recommendation": "Check administration frequency",
+      "caution": "Titration may be intended",
+      "expected_flag": true,
+      "facility": "Highland Fern Health Service",
+      "secondary_facility": "Redbank Plains Health Centre",
+      "patient": "Demo Patient 023",
+      "documents": [
+        {
+          "filename": "F23_A.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Highland Fern Health Service",
+          "record_date": "11 October 2026",
+          "text": "Highland Fern Health Service\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 023\nDocument date: 11 October 2026\nMedication: Gabapentin 300 mg twice daily\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F23_B.txt",
+          "type": "Specialist Letter",
+          "facility": "Redbank Plains Health Centre",
+          "record_date": "14 October 2026",
+          "text": "Redbank Plains Health Centre\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 023\nDocument date: 14 October 2026\nMedication: Gabapentin 300 mg three times daily\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F24",
+      "title": "Rosuvastatin strength difference",
+      "category": "strength_mismatch",
+      "medication": "Rosuvastatin",
+      "source_a": "Rosuvastatin 10 mg daily",
+      "source_b": "Rosuvastatin 20 mg daily",
+      "recommendation": "Confirm documented dose",
+      "caution": "Strength may change over time",
+      "expected_flag": true,
+      "facility": "Kestrel Grove Medical Centre",
+      "secondary_facility": "Riverstone Springs Hospital",
+      "patient": "Demo Patient 024",
+      "documents": [
+        {
+          "filename": "F24_A.txt",
+          "type": "Specialist Letter",
+          "facility": "Kestrel Grove Medical Centre",
+          "record_date": "12 October 2026",
+          "text": "Kestrel Grove Medical Centre\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 024\nDocument date: 12 October 2026\nMedication: Rosuvastatin 10 mg daily\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F24_B.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Riverstone Springs Hospital",
+          "record_date": "15 October 2026",
+          "text": "Riverstone Springs Hospital\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 024\nDocument date: 15 October 2026\nMedication: Rosuvastatin 20 mg daily\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F25",
+      "title": "Clopidogrel omitted",
+      "category": "omission",
+      "medication": "Clopidogrel",
+      "source_a": "Clopidogrel 75 mg daily current",
+      "source_b": "Medication list has no clopidogrel entry",
+      "recommendation": "Check if omitted or ceased",
+      "caution": "No absence proves discontinuation",
+      "expected_flag": true,
+      "facility": "Marshland Bay Hospital",
+      "secondary_facility": "Coastal Banksia Hospital",
+      "patient": "Demo Patient 025",
+      "documents": [
+        {
+          "filename": "F25_A.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Marshland Bay Hospital",
+          "record_date": "01 October 2026",
+          "text": "Marshland Bay Hospital\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 025\nDocument date: 01 October 2026\nMedication: Clopidogrel 75 mg daily current\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F25_B.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Coastal Banksia Hospital",
+          "record_date": "13 October 2026",
+          "text": "Coastal Banksia Hospital\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 025\nDocument date: 13 October 2026\nMedication: Medication list has no clopidogrel entry\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F26",
+      "title": "Prednisolone taper instructions absent",
+      "category": "missing_instruction",
+      "medication": "Prednisolone",
+      "source_a": "Prednisolone 20 mg daily taper by 5 mg every 3 days",
+      "source_b": "Prednisolone 20 mg daily with no taper directions",
+      "recommendation": "Review missing taper details",
+      "caution": "Clinician must verify full taper plan",
+      "expected_flag": true,
+      "facility": "Redbank Plains Health Centre",
+      "secondary_facility": "Moonah Ridge Medical Centre",
+      "patient": "Demo Patient 026",
+      "documents": [
+        {
+          "filename": "F26_A.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Redbank Plains Health Centre",
+          "record_date": "02 October 2026",
+          "text": "Redbank Plains Health Centre\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 026\nDocument date: 02 October 2026\nMedication: Prednisolone 20 mg daily taper by 5 mg every 3 days\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F26_B.txt",
+          "type": "GP Medication List",
+          "facility": "Moonah Ridge Medical Centre",
+          "record_date": "14 October 2026",
+          "text": "Moonah Ridge Medical Centre\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 026\nDocument date: 14 October 2026\nMedication: Prednisolone 20 mg daily with no taper directions\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F27",
+      "title": "Morphine oral solution concentration mismatch",
+      "category": "concentration_mismatch",
+      "medication": "Morphine",
+      "source_a": "Morphine oral solution 10 mg per 5 mL",
+      "source_b": "Morphine oral solution 10 mg per mL",
+      "recommendation": "Urgent verification of concentration difference",
+      "caution": "Product and dose units need review",
+      "expected_flag": true,
+      "facility": "Riverstone Springs Hospital",
+      "secondary_facility": "Otway Fields Community Hospital",
+      "patient": "Demo Patient 027",
+      "documents": [
+        {
+          "filename": "F27_A.txt",
+          "type": "GP Medication List",
+          "facility": "Riverstone Springs Hospital",
+          "record_date": "03 October 2026",
+          "text": "Riverstone Springs Hospital\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 027\nDocument date: 03 October 2026\nMedication: Morphine oral solution 10 mg per 5 mL\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F27_B.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Otway Fields Community Hospital",
+          "record_date": "15 October 2026",
+          "text": "Otway Fields Community Hospital\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 027\nDocument date: 15 October 2026\nMedication: Morphine oral solution 10 mg per mL\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F28",
+      "title": "Insulin glargine timing difference",
+      "category": "timing_mismatch",
+      "medication": "Insulin glargine",
+      "source_a": "Insulin glargine 18 units each evening",
+      "source_b": "Insulin glargine 18 units each morning",
+      "recommendation": "Confirm intended administration time",
+      "caution": "May have been changed intentionally",
+      "expected_flag": true,
+      "facility": "Coastal Banksia Hospital",
+      "secondary_facility": "Wattle Creek District Hospital",
+      "patient": "Demo Patient 028",
+      "documents": [
+        {
+          "filename": "F28_A.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Coastal Banksia Hospital",
+          "record_date": "04 October 2026",
+          "text": "Coastal Banksia Hospital\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 028\nDocument date: 04 October 2026\nMedication: Insulin glargine 18 units each evening\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F28_B.txt",
+          "type": "Specialist Letter",
+          "facility": "Wattle Creek District Hospital",
+          "record_date": "13 October 2026",
+          "text": "Wattle Creek District Hospital\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 028\nDocument date: 13 October 2026\nMedication: Insulin glargine 18 units each morning\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F29",
+      "title": "Bisoprolol formulation strength mismatch",
+      "category": "strength_mismatch",
+      "medication": "Bisoprolol",
+      "source_a": "Bisoprolol 2.5 mg once daily",
+      "source_b": "Bisoprolol 5 mg once daily",
+      "recommendation": "Check strength difference",
+      "caution": "Dose adjustment possible",
+      "expected_flag": true,
+      "facility": "Moonah Ridge Medical Centre",
+      "secondary_facility": "Banksia Valley Health Centre",
+      "patient": "Demo Patient 029",
+      "documents": [
+        {
+          "filename": "F29_A.txt",
+          "type": "Specialist Letter",
+          "facility": "Moonah Ridge Medical Centre",
+          "record_date": "05 October 2026",
+          "text": "Moonah Ridge Medical Centre\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 029\nDocument date: 05 October 2026\nMedication: Bisoprolol 2.5 mg once daily\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F29_B.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Banksia Valley Health Centre",
+          "record_date": "14 October 2026",
+          "text": "Banksia Valley Health Centre\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 029\nDocument date: 14 October 2026\nMedication: Bisoprolol 5 mg once daily\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F30",
+      "title": "Duloxetine missing prescribed route",
+      "category": "missing_route",
+      "medication": "Duloxetine",
+      "source_a": "Duloxetine 30 mg orally once daily",
+      "source_b": "Duloxetine 30 mg once daily; route unspecified",
+      "recommendation": "Request complete instruction",
+      "caution": "Omitted field does not mean different route",
+      "expected_flag": true,
+      "facility": "Otway Fields Community Hospital",
+      "secondary_facility": "Merri Plains Community Hospital",
+      "patient": "Demo Patient 030",
+      "documents": [
+        {
+          "filename": "F30_A.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Otway Fields Community Hospital",
+          "record_date": "06 October 2026",
+          "text": "Otway Fields Community Hospital\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 030\nDocument date: 06 October 2026\nMedication: Duloxetine 30 mg orally once daily\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F30_B.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Merri Plains Community Hospital",
+          "record_date": "15 October 2026",
+          "text": "Merri Plains Community Hospital\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 030\nDocument date: 15 October 2026\nMedication: Duloxetine 30 mg once daily; route unspecified\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F31",
+      "title": "Topical versus oral diclofenac",
+      "category": "route_mismatch",
+      "medication": "Diclofenac",
+      "source_a": "Diclofenac 1% gel topical four times daily",
+      "source_b": "Diclofenac 50 mg oral twice daily",
+      "recommendation": "Clarify if both formulations intended",
+      "caution": "Different formulations and routes",
+      "expected_flag": true,
+      "facility": "Wattle Creek District Hospital",
+      "secondary_facility": "Silvergum Base Hospital",
+      "patient": "Demo Patient 031",
+      "documents": [
+        {
+          "filename": "F31_A.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Wattle Creek District Hospital",
+          "record_date": "07 October 2026",
+          "text": "Wattle Creek District Hospital\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 031\nDocument date: 07 October 2026\nMedication: Diclofenac 1% gel topical four times daily\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F31_B.txt",
+          "type": "GP Medication List",
+          "facility": "Silvergum Base Hospital",
+          "record_date": "13 October 2026",
+          "text": "Silvergum Base Hospital\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 031\nDocument date: 13 October 2026\nMedication: Diclofenac 50 mg oral twice daily\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F32",
+      "title": "Empagliflozin dosage difference",
+      "category": "dose_mismatch",
+      "medication": "Empagliflozin",
+      "source_a": "Empagliflozin 10 mg daily",
+      "source_b": "Empagliflozin 25 mg daily",
+      "recommendation": "Verify intended dose",
+      "caution": "May be medication titration",
+      "expected_flag": true,
+      "facility": "Banksia Valley Health Centre",
+      "secondary_facility": "Westhaven Regional Medical Centre",
+      "patient": "Demo Patient 032",
+      "documents": [
+        {
+          "filename": "F32_A.txt",
+          "type": "GP Medication List",
+          "facility": "Banksia Valley Health Centre",
+          "record_date": "08 October 2026",
+          "text": "Banksia Valley Health Centre\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 032\nDocument date: 08 October 2026\nMedication: Empagliflozin 10 mg daily\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F32_B.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Westhaven Regional Medical Centre",
+          "record_date": "14 October 2026",
+          "text": "Westhaven Regional Medical Centre\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 032\nDocument date: 14 October 2026\nMedication: Empagliflozin 25 mg daily\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F33",
+      "title": "Furosemide morning versus twice daily",
+      "category": "frequency_mismatch",
+      "medication": "Furosemide",
+      "source_a": "Furosemide 40 mg every morning",
+      "source_b": "Furosemide 40 mg twice daily",
+      "recommendation": "Confirm frequency and dose timing",
+      "caution": "Changes may be intentional",
+      "expected_flag": true,
+      "facility": "Merri Plains Community Hospital",
+      "secondary_facility": "Golden Wattle Community Clinic",
+      "patient": "Demo Patient 033",
+      "documents": [
+        {
+          "filename": "F33_A.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Merri Plains Community Hospital",
+          "record_date": "09 October 2026",
+          "text": "Merri Plains Community Hospital\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 033\nDocument date: 09 October 2026\nMedication: Furosemide 40 mg every morning\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F33_B.txt",
+          "type": "Specialist Letter",
+          "facility": "Golden Wattle Community Clinic",
+          "record_date": "15 October 2026",
+          "text": "Golden Wattle Community Clinic\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 033\nDocument date: 15 October 2026\nMedication: Furosemide 40 mg twice daily\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F34",
+      "title": "Paracetamol brand duplicate",
+      "category": "brand_generic_duplicate",
+      "medication": "Panadol / paracetamol",
+      "source_a": "Panadol 500 mg two tablets as required",
+      "source_b": "Paracetamol 500 mg two tablets as required also current",
+      "recommendation": "Flag possible documentation duplicate",
+      "caution": "May be one medicine expressed two ways",
+      "expected_flag": true,
+      "facility": "Silvergum Base Hospital",
+      "secondary_facility": "Ironbark River Hospital",
+      "patient": "Demo Patient 034",
+      "documents": [
+        {
+          "filename": "F34_A.txt",
+          "type": "Specialist Letter",
+          "facility": "Silvergum Base Hospital",
+          "record_date": "10 October 2026",
+          "text": "Silvergum Base Hospital\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 034\nDocument date: 10 October 2026\nMedication: Panadol 500 mg two tablets as required\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F34_B.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Ironbark River Hospital",
+          "record_date": "13 October 2026",
+          "text": "Ironbark River Hospital\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 034\nDocument date: 13 October 2026\nMedication: Paracetamol 500 mg two tablets as required also current\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F35",
+      "title": "Amoxicillin allergy updated to none",
+      "category": "allergy_conflict",
+      "medication": "Amoxicillin",
+      "source_a": "Allergy record: amoxicillin rash",
+      "source_b": "Allergy chart: no known drug allergies",
+      "recommendation": "Verify documented allergy history",
+      "caution": "Absence from second chart not proof of tolerance",
+      "expected_flag": true,
+      "facility": "Westhaven Regional Medical Centre",
+      "secondary_facility": "Highland Fern Health Service",
+      "patient": "Demo Patient 035",
+      "documents": [
+        {
+          "filename": "F35_A.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Westhaven Regional Medical Centre",
+          "record_date": "11 October 2026",
+          "text": "Westhaven Regional Medical Centre\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 035\nDocument date: 11 October 2026\nMedication: Allergy record: amoxicillin rash\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F35_B.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Highland Fern Health Service",
+          "record_date": "14 October 2026",
+          "text": "Highland Fern Health Service\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 035\nDocument date: 14 October 2026\nMedication: Allergy chart: no known drug allergies\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F36",
+      "title": "Perindopril omitted",
+      "category": "omission",
+      "medication": "Perindopril",
+      "source_a": "Perindopril 4 mg daily current",
+      "source_b": "Discharge list contains no perindopril",
+      "recommendation": "Investigate omission and date",
+      "caution": "Could have been ceased",
+      "expected_flag": true,
+      "facility": "Golden Wattle Community Clinic",
+      "secondary_facility": "Kestrel Grove Medical Centre",
+      "patient": "Demo Patient 036",
+      "documents": [
+        {
+          "filename": "F36_A.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Golden Wattle Community Clinic",
+          "record_date": "12 October 2026",
+          "text": "Golden Wattle Community Clinic\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 036\nDocument date: 12 October 2026\nMedication: Perindopril 4 mg daily current\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F36_B.txt",
+          "type": "GP Medication List",
+          "facility": "Kestrel Grove Medical Centre",
+          "record_date": "15 October 2026",
+          "text": "Kestrel Grove Medical Centre\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 036\nDocument date: 15 October 2026\nMedication: Discharge list contains no perindopril\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F37",
+      "title": "Tramadol regular versus as required",
+      "category": "prn_vs_scheduled",
+      "medication": "Tramadol",
+      "source_a": "Tramadol 50 mg every six hours as needed",
+      "source_b": "Tramadol 50 mg every six hours scheduled",
+      "recommendation": "Confirm intended use",
+      "caution": "Do not interpret automatically",
+      "expected_flag": true,
+      "facility": "Ironbark River Hospital",
+      "secondary_facility": "Marshland Bay Hospital",
+      "patient": "Demo Patient 037",
+      "documents": [
+        {
+          "filename": "F37_A.txt",
+          "type": "GP Medication List",
+          "facility": "Ironbark River Hospital",
+          "record_date": "01 October 2026",
+          "text": "Ironbark River Hospital\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 037\nDocument date: 01 October 2026\nMedication: Tramadol 50 mg every six hours as needed\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F37_B.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Marshland Bay Hospital",
+          "record_date": "13 October 2026",
+          "text": "Marshland Bay Hospital\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 037\nDocument date: 13 October 2026\nMedication: Tramadol 50 mg every six hours scheduled\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F38",
+      "title": "Enoxaparin syringe unit confusion",
+      "category": "dose_unit_mismatch",
+      "medication": "Enoxaparin",
+      "source_a": "Enoxaparin 40 mg subcutaneous daily",
+      "source_b": "Enoxaparin 40 mL subcutaneous daily",
+      "recommendation": "Urgently verify dose unit entry",
+      "caution": "Dangerous transcription mismatch",
+      "expected_flag": true,
+      "facility": "Highland Fern Health Service",
+      "secondary_facility": "Redbank Plains Health Centre",
+      "patient": "Demo Patient 038",
+      "documents": [
+        {
+          "filename": "F38_A.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Highland Fern Health Service",
+          "record_date": "02 October 2026",
+          "text": "Highland Fern Health Service\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 038\nDocument date: 02 October 2026\nMedication: Enoxaparin 40 mg subcutaneous daily\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F38_B.txt",
+          "type": "Specialist Letter",
+          "facility": "Redbank Plains Health Centre",
+          "record_date": "14 October 2026",
+          "text": "Redbank Plains Health Centre\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 038\nDocument date: 14 October 2026\nMedication: Enoxaparin 40 mL subcutaneous daily\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F39",
+      "title": "Atorvastatin alias consistent",
+      "category": "same_medication",
+      "medication": "Atorvastatin",
+      "source_a": "Atorvastatin 20 mg daily",
+      "source_b": "Atorvastatin 20 mg daily",
+      "recommendation": "No discrepancy expected",
+      "caution": "Consistent instructions",
+      "expected_flag": false,
+      "facility": "Kestrel Grove Medical Centre",
+      "secondary_facility": "Riverstone Springs Hospital",
+      "patient": "Demo Patient 039",
+      "documents": [
+        {
+          "filename": "F39_A.txt",
+          "type": "Specialist Letter",
+          "facility": "Kestrel Grove Medical Centre",
+          "record_date": "03 October 2026",
+          "text": "Kestrel Grove Medical Centre\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 039\nDocument date: 03 October 2026\nMedication: Atorvastatin 20 mg daily\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F39_B.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Riverstone Springs Hospital",
+          "record_date": "15 October 2026",
+          "text": "Riverstone Springs Hospital\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 039\nDocument date: 15 October 2026\nMedication: Atorvastatin 20 mg daily\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F40",
+      "title": "Completed antibiotic course historical",
+      "category": "chronology_context",
+      "medication": "Cephalexin",
+      "source_a": "Cephalexin 500 mg four times daily from 01 to 05 October 2026",
+      "source_b": "Cephalexin not on current list dated 15 October 2026; course complete",
+      "recommendation": "Do not flag as unexplained omission",
+      "caution": "Treatment course ended before newer list",
+      "expected_flag": false,
+      "facility": "Marshland Bay Hospital",
+      "secondary_facility": "Coastal Banksia Hospital",
+      "patient": "Demo Patient 040",
+      "documents": [
+        {
+          "filename": "F40_A.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Marshland Bay Hospital",
+          "record_date": "04 October 2026",
+          "text": "Marshland Bay Hospital\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 040\nDocument date: 04 October 2026\nMedication: Cephalexin 500 mg four times daily from 01 to 05 October 2026\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F40_B.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Coastal Banksia Hospital",
+          "record_date": "13 October 2026",
+          "text": "Coastal Banksia Hospital\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 040\nDocument date: 13 October 2026\nMedication: Cephalexin not on current list dated 15 October 2026; course complete\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F41",
+      "title": "Candesartan vs irbesartan class overlap",
+      "category": "therapeutic_overlap",
+      "medication": "ARBs",
+      "source_a": "Candesartan 8 mg daily current",
+      "source_b": "Irbesartan 150 mg daily also active",
+      "recommendation": "Review class duplication and source context",
+      "caution": "Different drugs with related action",
+      "expected_flag": true,
+      "facility": "Redbank Plains Health Centre",
+      "secondary_facility": "Moonah Ridge Medical Centre",
+      "patient": "Demo Patient 041",
+      "documents": [
+        {
+          "filename": "F41_A.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Redbank Plains Health Centre",
+          "record_date": "05 October 2026",
+          "text": "Redbank Plains Health Centre\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 041\nDocument date: 05 October 2026\nMedication: Candesartan 8 mg daily current\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F41_B.txt",
+          "type": "GP Medication List",
+          "facility": "Moonah Ridge Medical Centre",
+          "record_date": "14 October 2026",
+          "text": "Moonah Ridge Medical Centre\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 041\nDocument date: 14 October 2026\nMedication: Irbesartan 150 mg daily also active\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F42",
+      "title": "Warfarin daily dose discrepancy",
+      "category": "dose_mismatch",
+      "medication": "Warfarin",
+      "source_a": "Warfarin 3 mg daily documented",
+      "source_b": "Warfarin 5 mg daily documented",
+      "recommendation": "Verify against authorised dosing schedule",
+      "caution": "Time and INR context essential",
+      "expected_flag": true,
+      "facility": "Riverstone Springs Hospital",
+      "secondary_facility": "Otway Fields Community Hospital",
+      "patient": "Demo Patient 042",
+      "documents": [
+        {
+          "filename": "F42_A.txt",
+          "type": "GP Medication List",
+          "facility": "Riverstone Springs Hospital",
+          "record_date": "06 October 2026",
+          "text": "Riverstone Springs Hospital\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 042\nDocument date: 06 October 2026\nMedication: Warfarin 3 mg daily documented\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F42_B.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Otway Fields Community Hospital",
+          "record_date": "15 October 2026",
+          "text": "Otway Fields Community Hospital\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 042\nDocument date: 15 October 2026\nMedication: Warfarin 5 mg daily documented\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F43",
+      "title": "Salbutamol inhaler 1 versus 2 puffs",
+      "category": "dose_mismatch",
+      "medication": "Salbutamol",
+      "source_a": "Salbutamol 100 micrograms inhaler 1 puff as required",
+      "source_b": "Salbutamol 100 micrograms inhaler 2 puffs as required",
+      "recommendation": "Clarify administered puffs",
+      "caution": "Strength per actuation differs from total dose",
+      "expected_flag": true,
+      "facility": "Coastal Banksia Hospital",
+      "secondary_facility": "Wattle Creek District Hospital",
+      "patient": "Demo Patient 043",
+      "documents": [
+        {
+          "filename": "F43_A.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Coastal Banksia Hospital",
+          "record_date": "07 October 2026",
+          "text": "Coastal Banksia Hospital\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 043\nDocument date: 07 October 2026\nMedication: Salbutamol 100 micrograms inhaler 1 puff as required\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F43_B.txt",
+          "type": "Specialist Letter",
+          "facility": "Wattle Creek District Hospital",
+          "record_date": "13 October 2026",
+          "text": "Wattle Creek District Hospital\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 043\nDocument date: 13 October 2026\nMedication: Salbutamol 100 micrograms inhaler 2 puffs as required\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F44",
+      "title": "Levothyroxine brand equivalence",
+      "category": "brand_alias",
+      "medication": "Levothyroxine",
+      "source_a": "Thyroxine 100 micrograms daily",
+      "source_b": "Levothyroxine 100 micrograms daily",
+      "recommendation": "Do not incorrectly double-count",
+      "caution": "Product name alias requires validation",
+      "expected_flag": false,
+      "facility": "Moonah Ridge Medical Centre",
+      "secondary_facility": "Banksia Valley Health Centre",
+      "patient": "Demo Patient 044",
+      "documents": [
+        {
+          "filename": "F44_A.txt",
+          "type": "Specialist Letter",
+          "facility": "Moonah Ridge Medical Centre",
+          "record_date": "08 October 2026",
+          "text": "Moonah Ridge Medical Centre\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 044\nDocument date: 08 October 2026\nMedication: Thyroxine 100 micrograms daily\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F44_B.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Banksia Valley Health Centre",
+          "record_date": "14 October 2026",
+          "text": "Banksia Valley Health Centre\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 044\nDocument date: 14 October 2026\nMedication: Levothyroxine 100 micrograms daily\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F45",
+      "title": "Pregabalin versus gabapentin overlap",
+      "category": "therapeutic_overlap",
+      "medication": "Gabapentinoids",
+      "source_a": "Gabapentin 300 mg three times daily current",
+      "source_b": "Pregabalin 75 mg twice daily also current",
+      "recommendation": "Review potential therapeutic overlap",
+      "caution": "May represent transition plan",
+      "expected_flag": true,
+      "facility": "Otway Fields Community Hospital",
+      "secondary_facility": "Merri Plains Community Hospital",
+      "patient": "Demo Patient 045",
+      "documents": [
+        {
+          "filename": "F45_A.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Otway Fields Community Hospital",
+          "record_date": "09 October 2026",
+          "text": "Otway Fields Community Hospital\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 045\nDocument date: 09 October 2026\nMedication: Gabapentin 300 mg three times daily current\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F45_B.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Merri Plains Community Hospital",
+          "record_date": "15 October 2026",
+          "text": "Merri Plains Community Hospital\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 045\nDocument date: 15 October 2026\nMedication: Pregabalin 75 mg twice daily also current\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F46",
+      "title": "Medication chart missing administration time",
+      "category": "missing_instruction",
+      "medication": "Bisoprolol",
+      "source_a": "Bisoprolol 5 mg every morning",
+      "source_b": "Bisoprolol 5 mg daily, no timing",
+      "recommendation": "Check completeness not automatic error",
+      "caution": "A daily instruction may be clinically sufficient",
+      "expected_flag": true,
+      "facility": "Wattle Creek District Hospital",
+      "secondary_facility": "Silvergum Base Hospital",
+      "patient": "Demo Patient 046",
+      "documents": [
+        {
+          "filename": "F46_A.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Wattle Creek District Hospital",
+          "record_date": "10 October 2026",
+          "text": "Wattle Creek District Hospital\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 046\nDocument date: 10 October 2026\nMedication: Bisoprolol 5 mg every morning\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F46_B.txt",
+          "type": "GP Medication List",
+          "facility": "Silvergum Base Hospital",
+          "record_date": "13 October 2026",
+          "text": "Silvergum Base Hospital\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 046\nDocument date: 13 October 2026\nMedication: Bisoprolol 5 mg daily, no timing\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F47",
+      "title": "Oxycodone immediate release vs modified release",
+      "category": "formulation_mismatch",
+      "medication": "Oxycodone",
+      "source_a": "Oxycodone immediate release 5 mg every six hours as required",
+      "source_b": "Oxycodone modified release 5 mg twice daily",
+      "recommendation": "Compare release type and schedule",
+      "caution": "Different intended roles possible",
+      "expected_flag": true,
+      "facility": "Banksia Valley Health Centre",
+      "secondary_facility": "Westhaven Regional Medical Centre",
+      "patient": "Demo Patient 047",
+      "documents": [
+        {
+          "filename": "F47_A.txt",
+          "type": "GP Medication List",
+          "facility": "Banksia Valley Health Centre",
+          "record_date": "11 October 2026",
+          "text": "Banksia Valley Health Centre\nGP Medication List\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 047\nDocument date: 11 October 2026\nMedication: Oxycodone immediate release 5 mg every six hours as required\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F47_B.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Westhaven Regional Medical Centre",
+          "record_date": "14 October 2026",
+          "text": "Westhaven Regional Medical Centre\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 047\nDocument date: 14 October 2026\nMedication: Oxycodone modified release 5 mg twice daily\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F48",
+      "title": "Doxycycline course length",
+      "category": "duration_conflict",
+      "medication": "Doxycycline",
+      "source_a": "Doxycycline 100 mg once daily for 7 days",
+      "source_b": "Doxycycline 100 mg once daily for 14 days",
+      "recommendation": "Verify duration and clinical context",
+      "caution": "May reflect updated plan",
+      "expected_flag": true,
+      "facility": "Merri Plains Community Hospital",
+      "secondary_facility": "Golden Wattle Community Clinic",
+      "patient": "Demo Patient 048",
+      "documents": [
+        {
+          "filename": "F48_A.txt",
+          "type": "Medication Administration Chart",
+          "facility": "Merri Plains Community Hospital",
+          "record_date": "12 October 2026",
+          "text": "Merri Plains Community Hospital\nMedication Administration Chart\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 048\nDocument date: 12 October 2026\nMedication: Doxycycline 100 mg once daily for 7 days\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F48_B.txt",
+          "type": "Specialist Letter",
+          "facility": "Golden Wattle Community Clinic",
+          "record_date": "15 October 2026",
+          "text": "Golden Wattle Community Clinic\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 048\nDocument date: 15 October 2026\nMedication: Doxycycline 100 mg once daily for 14 days\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F49",
+      "title": "Sertraline stopped versus restarted",
+      "category": "status_conflict",
+      "medication": "Sertraline",
+      "source_a": "Sertraline 50 mg daily ceased on discharge",
+      "source_b": "Sertraline 50 mg daily current in GP list",
+      "recommendation": "Confirm active plan",
+      "caution": "Chronology must be assessed",
+      "expected_flag": true,
+      "facility": "Silvergum Base Hospital",
+      "secondary_facility": "Ironbark River Hospital",
+      "patient": "Demo Patient 049",
+      "documents": [
+        {
+          "filename": "F49_A.txt",
+          "type": "Specialist Letter",
+          "facility": "Silvergum Base Hospital",
+          "record_date": "01 October 2026",
+          "text": "Silvergum Base Hospital\nSpecialist Letter\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 049\nDocument date: 01 October 2026\nMedication: Sertraline 50 mg daily ceased on discharge\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F49_B.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Ironbark River Hospital",
+          "record_date": "13 October 2026",
+          "text": "Ironbark River Hospital\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 049\nDocument date: 13 October 2026\nMedication: Sertraline 50 mg daily current in GP list\nSigned by: Fictional staff member\n"
+        }
+      ]
+    },
+    {
+      "id": "F50",
+      "title": "Metformin brand equivalent",
+      "category": "brand_alias",
+      "medication": "Metformin",
+      "source_a": "Metformin XR 500 mg once daily",
+      "source_b": "Metformin modified-release 500 mg once daily",
+      "recommendation": "Likely consistent formulation wording; verify product",
+      "caution": "Brand/formulation normalization needed",
+      "expected_flag": false,
+      "facility": "Westhaven Regional Medical Centre",
+      "secondary_facility": "Highland Fern Health Service",
+      "patient": "Demo Patient 050",
+      "documents": [
+        {
+          "filename": "F50_A.txt",
+          "type": "Allergy Reconciliation Form",
+          "facility": "Westhaven Regional Medical Centre",
+          "record_date": "02 October 2026",
+          "text": "Westhaven Regional Medical Centre\nAllergy Reconciliation Form\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 050\nDocument date: 02 October 2026\nMedication: Metformin XR 500 mg once daily\nSigned by: Fictional staff member\n"
+        },
+        {
+          "filename": "F50_B.txt",
+          "type": "Hospital Discharge Summary",
+          "facility": "Highland Fern Health Service",
+          "record_date": "14 October 2026",
+          "text": "Highland Fern Health Service\nHospital Discharge Summary\nDOCUMENT STATUS: FICTIONAL TRAINING RECORD — NOT FOR CLINICAL USE\nPatient: Demo Patient 050\nDocument date: 14 October 2026\nMedication: Metformin modified-release 500 mg once daily\nSigned by: Fictional staff member\n"
+        }
+      ]
+    }
+  ]
+}
