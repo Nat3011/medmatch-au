@@ -39,3 +39,14 @@ Replace the simulated pipeline with a **real**, security-reviewed upload/OCR/str
 ## Safety notice
 
 This is not a clinical device or clinical advice. No actual patient documents should be used. No OCR or LLM analysis currently occurs, and the statistics are synthetic-case indicators, not real usage analytics. Never use the demo to change medication. Clinical, privacy, security and regulatory evaluation must precede any patient-data deployment.
+
+## Extended 20-case evaluation library
+
+The **Test case library** navigation tab displays 20 fictional Australian-style examples, including status/cessation conflicts, levothyroxine microgram-to-milligram unit mismatch, metformin frequency, Symbicort-versus-budesonide ingredient overlap, strength, route, modified-release formulation, omissions, allergy reconciliation, as-needed instructions, brand/generic aliases, insulin units, antibiotic duration, weekly versus daily schedules, stop date, missing dose, chronology, administration timing, and tablet fractions.
+
+- Machine-readable cases: `tests/twenty_cases.json`
+- Paired human-readable synthetic document excerpts: `samples/20-case-document-pairs.md`
+- A companion downloadable ZIP in the development conversation includes **40 individually generated PDFs** plus an answer-key CSV and JSON.
+- **C17 is a non-finding** (Eliquis = apixaban); **C18 is a potentially resolved historical titration**. The Symbicort combination inhaler contains both budesonide and formoterol, so it is not identical to budesonide-only inhaler.
+
+The library is reference/test data for future AI benchmarking. Choosing a case does not execute OCR or LLM inference. Clinical review priorities are illustrative and not prescribing recommendations.
